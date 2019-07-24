@@ -1,0 +1,41 @@
+.header-site {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    margin-bottom: 80px;
+
+    .logo {
+        @extend .pacific;
+
+        color: $black;
+        text-decoration: none;
+        font-size: 30px;
+
+        img {
+            width: 33px;
+            margin-right: 5px;
+        }
+    }
+
+    .menu-nav {
+
+        margin-bottom: 0;
+
+        li {
+            margin-right: 30px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            a {
+                @extend .robotoSlabRegular;
+                
+                font-size: 18px;
+                color: $black;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+        }
+    }
+}

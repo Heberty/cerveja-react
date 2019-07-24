@@ -1,0 +1,13 @@
+body {
+    background-image: url('/img/bg-owl-beer.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    button {
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
