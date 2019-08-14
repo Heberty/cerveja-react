@@ -23,6 +23,69 @@ function renderHeader() {
   );
 }
 
+function renderBeers(beer) {
+    const beers = [
+        {name: 'Budweiser', mls: [
+            {
+                id: 1,
+                value: 330
+            }, {
+                id: 2,
+                value: 550
+            }
+        ]},
+        {name:'Heineken', mls:  [
+            {
+                id: 3,
+                value: 250
+            }, {
+                id: 4,
+                value: 330
+            }, {
+                id: 5,
+                value: 600
+            }
+        ]},
+        {name:'Stella', mls: [
+            {
+                id: 6,
+                value: 250
+            }, {
+                id: 7,
+                value: 330
+            }, {
+                id: 8,
+                value: 600
+            }
+        ]}
+    ];
+
+    var allBeers = beers.map(beer =>
+        <optgroup label={  beer.name }>{ 
+            beer.mls.map(ml => (
+                <option value={ml.id}>{ beer.name + ' ' + ml.value + 'ml' }</option>
+            ))
+         }
+         </optgroup>
+    );
+
+    return allBeers
+}
+
+function renderMl() {
+    const mls = [
+        350,
+        550,
+        330,
+        600
+    ];
+
+    const allMls = mls.map(ml =>
+        <option>{ ml }</option>
+    );
+    return allMls
+}
+
 function renderButton(text) {
   return (
     <button className="btn-site">{ text }</button>
@@ -48,21 +111,13 @@ function renderMain() {
               <Form.Group className="col-lg-3">
                 <Form.Label>Quant. em ml</Form.Label>
                 <Form.Control as="select">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  {renderMl()}
                 </Form.Control>
               </Form.Group>
               <Form.Group className="col-lg-6">
                 <Form.Label>Cerveja</Form.Label>
                 <Form.Control as="select">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                    {renderBeers()}
                 </Form.Control>
               </Form.Group>
               <Form.Group className="col-lg-3">
@@ -72,21 +127,13 @@ function renderMain() {
               <Form.Group className="col-lg-3">
                 <Form.Label>Quant. em ml</Form.Label>
                 <Form.Control as="select">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                    {renderMl()}
                 </Form.Control>
               </Form.Group>
               <Form.Group className="col-lg-6">
                 <Form.Label>Cerveja</Form.Label>
                 <Form.Control as="select">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                    {renderBeers()}
                 </Form.Control>
               </Form.Group>
               <Form.Group className="offset-lg-7 col-lg-5">
