@@ -63,7 +63,7 @@ function renderBeers(beer) {
     var allBeers = beers.map(beer =>
         <optgroup label={  beer.name }>{ 
             beer.mls.map(ml => (
-                <option value={ml.id}>{ beer.name + ' ' + ml.value + 'ml' }</option>
+                <option value={ml.value}>{ beer.name + ' ' + ml.value + 'ml' }</option>
             ))
          }
          </optgroup>
@@ -72,23 +72,22 @@ function renderBeers(beer) {
     return allBeers
 }
 
-function renderMl() {
-    const mls = [
-        350,
-        550,
-        330,
-        600
-    ];
+let calcBeer = () => { // Arrow function
+  return function() {
+    let preco01 = document.getElementById('preco01').value;
+    let ml01 = document.getElementById('ml01').value;
+    let element = document.getElementById('elementId');
 
-    const allMls = mls.map(ml =>
-        <option>{ ml }</option>
-    );
-    return allMls
+    let valueTotal = (preco01 / ml01);
+
+    element.innerText = valueTotal;
+
+  }
 }
 
 function renderButton(text) {
   return (
-    <button className="btn-site">{ text }</button>
+    <span className="btn-site" onClick={ calcBeer() }>{ text }</span>
   );
 }
 
@@ -106,29 +105,17 @@ function renderMain() {
             <Form className="form-site row">
               <Form.Group className="col-lg-3">
                 <Form.Label>Preço</Form.Label>
-                <Form.Control name="preco" className="money" />
-              </Form.Group>
-              <Form.Group className="col-lg-3">
-                <Form.Label>Quant. em ml</Form.Label>
-                <Form.Control as="select">
-                  {renderMl()}
-                </Form.Control>
+                <Form.Control name="preco" id="preco01" className="money" />
               </Form.Group>
               <Form.Group className="col-lg-6">
                 <Form.Label>Cerveja</Form.Label>
-                <Form.Control as="select">
+                <Form.Control as="select" id="ml01">
                     {renderBeers()}
                 </Form.Control>
               </Form.Group>
               <Form.Group className="col-lg-3">
                 <Form.Label>Preço</Form.Label>
                 <Form.Control id="preco" className="money" />
-              </Form.Group>
-              <Form.Group className="col-lg-3">
-                <Form.Label>Quant. em ml</Form.Label>
-                <Form.Control as="select">
-                    {renderMl()}
-                </Form.Control>
               </Form.Group>
               <Form.Group className="col-lg-6">
                 <Form.Label>Cerveja</Form.Label>
@@ -145,6 +132,7 @@ function renderMain() {
             <div className="box-beer">
               <strong className="title-beer">Cerveja mais barata</strong>
               <p className="name-beer">Budweiser 330ml</p>
+              <span id="elementId"></span>
               <div className="body-beer">
                 <img alt="" className="image-beer" src="/img/beer-default.png" />
               </div>
