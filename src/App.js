@@ -23,7 +23,7 @@ function renderHeader() {
   );
 }
 
-function renderBeers(beer) {
+function renderBeers(cerveja) {
     const beers = [
         {name: 'Budweiser', mls: [
             {
@@ -72,18 +72,12 @@ function renderBeers(beer) {
     return allBeers
 }
 
-function renderMl() {
-    const mls = [
-        350,
-        550,
-        330,
-        600
-    ];
+function calcBeer() {
+    var cerveja;
+    
+    var cerverja = document.getElementById('cervejaId');
 
-    const allMls = mls.map(ml =>
-        <option>{ ml }</option>
-    );
-    return allMls
+    console.log(cerveja);
 }
 
 function renderButton(text) {
@@ -94,64 +88,57 @@ function renderButton(text) {
 
 function renderMain() {
   
-  return (
-    <section className="section-main">
-      <Container>
-        <Row>
-          <Col lg={3} className="d-flex align-items-center">
-            <img alt="" className="image-main" src="/img/cerveja.svg" />
-          </Col>
-          <Col lg={8} className="text-right">
-            <h1 className="title-main">Compare o preço <br />da cerveja</h1>
-            <Form className="form-site row">
-              <Form.Group className="col-lg-3">
-                <Form.Label>Preço</Form.Label>
-                <Form.Control name="preco" className="money" />
-              </Form.Group>
-              <Form.Group className="col-lg-3">
-                <Form.Label>Quant. em ml</Form.Label>
-                <Form.Control as="select">
-                  {renderMl()}
-                </Form.Control>
-              </Form.Group>
-              <Form.Group className="col-lg-6">
-                <Form.Label>Cerveja</Form.Label>
-                <Form.Control as="select">
-                    {renderBeers()}
-                </Form.Control>
-              </Form.Group>
-              <Form.Group className="col-lg-3">
-                <Form.Label>Preço</Form.Label>
-                <Form.Control id="preco" className="money" />
-              </Form.Group>
-              <Form.Group className="col-lg-3">
-                <Form.Label>Quant. em ml</Form.Label>
-                <Form.Control as="select">
-                    {renderMl()}
-                </Form.Control>
-              </Form.Group>
-              <Form.Group className="col-lg-6">
-                <Form.Label>Cerveja</Form.Label>
-                <Form.Control as="select">
-                    {renderBeers()}
-                </Form.Control>
-              </Form.Group>
-              <Form.Group className="offset-lg-7 col-lg-5">
-                  { renderButton('Calcule') }
-              </Form.Group>
-            </Form>
-          </Col>
-          <Col lg={3}>
-            <div className="box-beer">
-              <strong className="title-beer">Cerveja mais barata</strong>
-              <p className="name-beer">Budweiser 330ml</p>
-              <div className="body-beer">
-                <img alt="" className="image-beer" src="/img/beer-default.png" />
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+    return (
+        <section className="section-main">
+        <Container>
+            <Row>
+                <Col lg={6} className="d-flex align-items-center">
+                    <img alt="" className="image-main" src="/img/cerveja.svg" />
+                </Col>
+                <Col lg={6} className="d-flex align-items-center">
+                    <h1 className="title-main">Compare o preço <br />da cerveja</h1>
+                </Col>
+
+                <Form className="form-site row">
+                    <Col lg={3} className="row">
+                        <Col lg={12}>
+                            <div className="box-beer">
+                            <strong className="title-beer">Cerveja mais barata</strong>
+                            <p className="name-beer">Budweiser 330ml</p>
+                            <div className="body-beer">
+                                <img alt="" className="image-beer" src="/img/beer-default.png" />
+                            </div>
+                            </div>
+                        </Col>
+                    </Col>
+                    <Col lg={9} className="row">
+                        <Form.Group className="col-lg-3 offset-lg-3">
+                            <Form.Label>Preço</Form.Label>
+                            <Form.Control name="preco" className="money" />
+                        </Form.Group>
+                        <Form.Group className="col-lg-6">
+                            <Form.Label>Cerveja</Form.Label>
+                            <Form.Control as="select" id="cervejaId" onChange={calcBeer()}>
+                                {renderBeers()}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group className="col-lg-3 offset-lg-3">
+                            <Form.Label>Preço</Form.Label>
+                            <Form.Control id="preco" className="money" />
+                        </Form.Group>
+                        <Form.Group className="col-lg-6">
+                            <Form.Label>Cerveja</Form.Label>
+                            <Form.Control as="select">
+                                {renderBeers()}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group className="offset-lg-7 col-lg-5">
+                            { renderButton('Calcule') }
+                        </Form.Group>
+                    </Col>
+                </Form>
+            </Row>
+        </Container>
     </section>
   );
 }

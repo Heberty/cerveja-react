@@ -89,7 +89,7 @@ body button:focus {
   min-height: 100vh;
 }
 .section-main .image-main {
-  width: 100%;
+  width: 250px;
 }
 .section-main .title-main {
   color: #292929;
