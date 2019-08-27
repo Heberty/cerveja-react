@@ -63,7 +63,7 @@ function renderBeers(cerveja) {
     var allBeers = beers.map(beer =>
         <optgroup label={  beer.name }>{ 
             beer.mls.map(ml => (
-                <option value={ml.id}>{ beer.name + ' ' + ml.value + 'ml' }</option>
+                <option value={ml.value}>{ beer.name + ' ' + ml.value + 'ml' }</option>
             ))
          }
          </optgroup>
@@ -72,22 +72,26 @@ function renderBeers(cerveja) {
     return allBeers
 }
 
-function calcBeer() {
-    var cerveja;
-    
-    var cerverja = document.getElementById('cervejaId');
+let calcBeer = () => { // Arrow function
+  return function() {
+    let preco01 = document.getElementById('preco01').value;
+    let ml01 = document.getElementById('ml01').value;
+    let element = document.getElementById('elementId');
 
-    console.log(cerveja);
+    let valueTotal = (preco01 / ml01);
+
+    element.innerText = valueTotal;
+
+  }
 }
 
 function renderButton(text) {
   return (
-    <button className="btn-site">{ text }</button>
+    <span className="btn-site" onClick={ calcBeer() }>{ text }</span>
   );
 }
 
 function renderMain() {
-  
     return (
         <section className="section-main">
         <Container>
@@ -114,11 +118,11 @@ function renderMain() {
                     <Col lg={9} className="row">
                         <Form.Group className="col-lg-3 offset-lg-3">
                             <Form.Label>Preço</Form.Label>
-                            <Form.Control name="preco" className="money" />
+                            <Form.Control name="preco" id="preco01" className="money" />
                         </Form.Group>
                         <Form.Group className="col-lg-6">
                             <Form.Label>Cerveja</Form.Label>
-                            <Form.Control as="select" id="cervejaId" onChange={calcBeer()}>
+                            <Form.Control as="select" id="ml01">
                                 {renderBeers()}
                             </Form.Control>
                         </Form.Group>
