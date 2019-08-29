@@ -37,6 +37,13 @@
             color: $black;
         }
 
+        .results-beer {
+            @extend .robotoSlabBold;
+
+            font-size: 24px;
+            color: $gray-lt;
+        }
+
         .name-beer {
             @extend .robotoSlabBold;
             

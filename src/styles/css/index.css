@@ -9,7 +9,7 @@
   font-weight: 400;
 }
 
-.robotoSlabBold, .section-main .box-beer .name-beer, .section-main .box-beer .title-beer, .btn-site, .form-site .form-group .form-control, .form-site .form-group .form-label {
+.robotoSlabBold, .section-main .box-beer .name-beer, .section-main .box-beer .results-beer, .section-main .box-beer .title-beer, .btn-site, .form-site .form-group .form-control, .form-site .form-group .form-label {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
 }
@@ -113,6 +113,10 @@ body button:focus {
 .section-main .box-beer .title-beer {
   font-size: 22px;
   color: #292929;
+}
+.section-main .box-beer .results-beer {
+  font-size: 24px;
+  color: #9F9F9F;
 }
 .section-main .box-beer .name-beer {
   font-size: 16px;

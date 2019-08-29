@@ -72,85 +72,110 @@ function renderBeers(cerveja) {
     return allBeers
 }
 
-let calcBeer = () => { // Arrow function
-  return function() {
-    let preco01 = document.getElementById('preco01').value;
-    let ml01 = document.getElementById('ml01').value;
-    let element = document.getElementById('elementId');
-
-    let valueTotal = (preco01 / ml01);
-
-    element.innerText = valueTotal;
-
-  }
+const RenderButton = (props) => {
+    var text = props.text;
+    return  <span className="btn-site" onClick={() => props.onClick() }>{ text }</span>
 }
 
-function renderButton(text) {
-  return (
-    <span className="btn-site" onClick={ calcBeer() }>{ text }</span>
-  );
-}
+class RenderMain extends React.Component  {
+    constructor(props) {
+        super(props);
 
-function renderMain() {
-    return (
-        <section className="section-main">
-        <Container>
-            <Row>
-                <Col lg={6} className="d-flex align-items-center">
-                    <img alt="" className="image-main" src="/img/cerveja.svg" />
-                </Col>
-                <Col lg={6} className="d-flex align-items-center">
-                    <h1 className="title-main">Compare o preço <br />da cerveja</h1>
-                </Col>
+        this.state = {
+            preco01: 0,
+            preco02: 0,
+            ml01: 330,
+            ml02: 550,
+            valueElementId: ''
+        }
+    }
 
-                <Form className="form-site row">
-                    <Col lg={3} className="row">
-                        <Col lg={12}>
-                            <div className="box-beer">
-                            <strong className="title-beer">Cerveja mais barata</strong>
-                            <p className="name-beer">Budweiser 330ml</p>
-                            <div className="body-beer">
-                                <img alt="" className="image-beer" src="/img/beer-default.png" />
-                            </div>
-                            </div>
+    calcBeer() {
+        let preco01 = this.state.preco01;
+        let ml01 = this.state.ml01;
+        let preco02 = this.state.preco02;
+        let ml02 = this.state.ml02;
+    
+        let valueTotal01 = (preco01 / ml01);
+        let valueTotal02 = (preco02 / ml02);
+  
+        if(valueTotal01 < valueTotal02) {
+            this.setState({ valueElementId: valueTotal01 });
+        } else if(valueTotal02 < valueTotal01) {
+            this.setState({ valueElementId: valueTotal02 });
+        }
+    }
+
+    onChangePreco01(e) {
+        this.setState({ preco01: e.target.value });
+    }
+
+    onChangePreco02(e) {
+        this.setState({ preco02: e.target.value });
+    }
+
+    render() {
+        return (
+            <section className="section-main">
+                <Container>
+                    <Row>
+                        <Col lg={6} className="d-flex align-items-center">
+                            <img alt="" className="image-main" src="/img/cerveja.svg" />
                         </Col>
-                    </Col>
-                    <Col lg={9} className="row">
-                        <Form.Group className="col-lg-3 offset-lg-3">
-                            <Form.Label>Preço</Form.Label>
-                            <Form.Control name="preco" id="preco01" className="money" />
-                        </Form.Group>
-                        <Form.Group className="col-lg-6">
-                            <Form.Label>Cerveja</Form.Label>
-                            <Form.Control as="select" id="ml01">
-                                {renderBeers()}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group className="col-lg-3 offset-lg-3">
-                            <Form.Label>Preço</Form.Label>
-                            <Form.Control id="preco" className="money" />
-                        </Form.Group>
-                        <Form.Group className="col-lg-6">
-                            <Form.Label>Cerveja</Form.Label>
-                            <Form.Control as="select">
-                                {renderBeers()}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group className="offset-lg-7 col-lg-5">
-                            { renderButton('Calcule') }
-                        </Form.Group>
-                    </Col>
-                </Form>
-            </Row>
-        </Container>
-    </section>
-  );
+                        <Col lg={6} className="d-flex align-items-center">
+                            <h1 className="title-main">Compare o preço <br />da cerveja</h1>
+                        </Col>
+        
+                        <Form className="form-site row">
+                            <Col lg={3} className="row">
+                                <Col lg={12}>
+                                    <div className="box-beer">
+                                        <strong className="title-beer">Cerveja mais barata</strong>
+                                        <p className="name-beer">Budweiser 330ml</p>
+                                        <div className="body-beer">
+                                            <img alt="" className="image-beer" src="/img/beer-default.png" />
+                                        </div>
+                                        <span className="results-beer">{this.state.valueElementId}</span>  
+                                    </div>
+                                </Col>
+                            </Col>
+                            <Col lg={9} className="row">
+                                <Form.Group className="col-lg-3 offset-lg-3">
+                                    <Form.Label>Preço</Form.Label>
+                                    <Form.Control value={this.state.preco01} onChange={(e) => this.onChangePreco01(e)} name="preco" className="money" />
+                                </Form.Group>
+                                <Form.Group className="col-lg-6">
+                                    <Form.Label>Cerveja</Form.Label>
+                                    <Form.Control value={this.state.ml01} as="select" id="ml01">
+                                        {renderBeers()}
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group className="col-lg-3 offset-lg-3">
+                                    <Form.Label>Preço</Form.Label>
+                                    <Form.Control value={this.state.preco02} onChange={(e) => this.onChangePreco02(e)}  id="preco" id="preco02" className="money" />
+                                </Form.Group>
+                                <Form.Group className="col-lg-6">
+                                    <Form.Label>Cerveja</Form.Label>
+                                    <Form.Control value={this.state.ml02} as="select" id="ml02">
+                                        {renderBeers()}
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group className="offset-lg-7 col-lg-5">
+                                    <RenderButton text="Calcule" onClick={() => this.calcBeer()} />
+                                </Form.Group>
+                            </Col>
+                        </Form>
+                    </Row>
+                </Container>
+            </section>
+        );
+    }
 }
 function App() {
     return (
       <React.Fragment>
         { renderHeader() }
-        { renderMain() }
+        <RenderMain />
       </React.Fragment>
     );
 }
